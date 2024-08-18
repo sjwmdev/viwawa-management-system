@@ -7,93 +7,97 @@
 
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
-        <div class="cardz mx-auto" style="max-height: 90vh; overflow-y: auto;">
-            <div class="card-header">
+        <div class="card mx-auto" style="max-height: 90vh; overflow-y: auto;">
+            <div class="card-header text-white">
                 <h4 class="my-1 float-left">Michango ya Mwezi</h4>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.monthly.contributions.index')): ?>
                     <div class="btn-group btn-group-md float-right" role="group">
                         <form id="year-form" method="GET" action="<?php echo e(route('admin.monthly.contributions.index')); ?>">
-                            <label for="year" class="mr-2">Chagua Mwaka:</label>
+                            <label for="year" class="mr-2 text-white">Chagua Mwaka:</label>
                             <select id="year" name="year" class="form-control"
                                 onchange="document.getElementById('year-form').submit();">
                                 <option value="">Mwaka</option>
                                 <?php $__currentLoopData = $years; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($year); ?>" <?php echo e($currentYear == $year ? 'selected' : ''); ?>>
-                                        <?php echo e($year); ?></option>
+                                        <?php echo e($year); ?>
+
+                                    </option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </form>
                     </div>
                 <?php endif; ?>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.monthly.contributions.create')): ?>
-                    <div class="btn-group btn-group-md float-right" role="group" style="margin-right: 50px;">
-                        <a href="<?php echo e(route('admin.monthly.contributions.create')); ?>" class="btn btn-light"><i
-                                class="fa fa-plus-circle"></i>&nbsp;&nbsp;Ongeza Mchango</a>
+                    <div class="btn-group btn-group-md float-right" role="group" style="margin-right: 50px; margin-top: 32px">
+                        <a href="<?php echo e(route('admin.monthly.contributions.create')); ?>" class="btn btn-light">
+                            <i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Ongeza Mchango
+                        </a>
                     </div>
                 <?php endif; ?>
             </div>
             <div class="card-body">
                 <?php if($months->isEmpty()): ?>
-                    <!-- No Monthly Contributions Records Message -->
-                    <div class="alert alert-light text-danger alert-md" role="alert">
+                    <div class="alert alert-light text-danger alert-md text-center" role="alert">
                         Hakuna michango iliyopatikana kwa mwaka uliochaguliwa.
                     </div>
                 <?php else: ?>
-                    <?php $__currentLoopData = $months; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $month => $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="card mb-3">
-                            <div class="card-header bg-light">
-                                <h4><?php echo e(\Carbon\Carbon::createFromDate($currentYear, $month, 1)->format('F Y')); ?>&nbsp;&nbsp;
-                                    <span class="badge badge-secondary p-1"><?php echo e($data['count']); ?> /
-                                        <?php echo e($data['total_members']); ?></span> 
-                                </h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Jina la Mwanachama</th>
-                                                <th>Kiasi Kilicholipwa (TZS)</th>
-                                                <th>Kiasi Kilichosalia (TZS)</th>
-                                                <th class="not-printable" width="13%">Hali</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $__currentLoopData = $data['members']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contribution): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <tr>
-                                                    <td><?php echo e($contribution->member->user->first_name); ?>
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="table-td-md" style="width: 20%;">Mwezi</th>
+                                    <th class="table-td-md">Jina la Mwanachama</th>
+                                    <th class="table-td-md">Kiasi Kilicholipwa (TZS)</th>
+                                    <th class="table-td-md">Kiasi Kilichosalia (TZS)</th>
+                                    <th class="table-td-md not-printable" style="width: 15%;"></th>
+                                    <th class="table-td-md not-printable" style="width: 10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $__currentLoopData = $months; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $month => $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr>
+                                        <td colspan="6" class="table-td-md bg-light font-weight-bold text-primary pt-4">
+                                            <?php echo e(\Carbon\Carbon::createFromDate($currentYear, $month, 1)->format('F Y')); ?>
 
-                                                        <?php echo e($contribution->member->user->middle_name); ?>
+                                            <span class="badge badge-secondary badge-size p-2 ml-2">
+                                                <?php echo e($data['count']); ?> / <?php echo e($data['total_members']); ?>
 
-                                                        <?php echo e($contribution->member->user->last_name); ?></td>
-                                                    <td><?php echo e(number_format($contribution->total_paid, 2)); ?> TZS</td>
-                                                    <td><?php echo e(number_format($contribution->remaining_amount, 2)); ?> TZS</td>
-                                                    <td>
-                                                        <span
-                                                            class="badge badge-size <?php echo e(strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark'); ?>">
-                                                            <?php echo e(strtolower($contribution->status) == 'completed' ? 'Amekamilisha' : 'Hajakamilika'); ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <?php $__currentLoopData = $data['members']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contribution): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <tr>
+                                            <td></td>
+                                            <td class="table-td-md"><?php echo e($contribution->member->user->first_name); ?>
 
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        </tbody>
-                                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.monthly.contributions.details')): ?>
-                                            <tfoot>
-                                                <tr>
-                                                    <td colspan="4" class="text-right">
-                                                        <a href="<?php echo e(route('admin.monthly.contributions.details', ['year' => $contribution->year, 'month' => $contribution->month])); ?>"
-                                                            class="btn btn-outline-secondary tfooter-mr btn-sm">Tazama
-                                                            Maelezo</a>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
-                                        <?php endif; ?>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <?php echo e($contribution->member->user->middle_name); ?>
+
+                                                <?php echo e($contribution->member->user->last_name); ?></td>
+                                            <td class="table-td-md"><?php echo e(number_format($contribution->total_paid, 2)); ?>
+
+                                            </td>
+                                            <td class="table-td-md"><?php echo e(number_format($contribution->remaining_amount, 2)); ?></td>
+                                            <td class="table-td-md">
+                                                <span
+                                                    class="badge badge-size <?php echo e(strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark'); ?>">
+                                                    <?php echo e(strtolower($contribution->status) == 'completed' ? 'Amekamilisha' : 'Hajakamilika'); ?>
+
+                                                </span>
+                                            </td>
+                                            <td class="table-td-md">
+                                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.monthly.contributions.edit')): ?>
+                                                    <a href="<?php echo e(route('admin.monthly.contributions.edit', $contribution->id)); ?>"
+                                                        class="btn btn-outline-secondary btn-md" title="Hariri">
+                                                        Hariri
+                                                    </a>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </tbody>
+                        </table>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

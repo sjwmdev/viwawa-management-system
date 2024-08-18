@@ -1,9 +1,13 @@
 <!-- All css -->
 <?php echo $__env->make('backend.components.index.allcss', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+<?php $__env->startSection('meta'); ?>
+    <meta name="report-title" content="Ripoti ya Mapato ya Jumamosi">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
-        <div class="cardz">
+        <div class="cardz" style="max-height: 90vh; overflow-y: auto;">
             <div class="card-header">
                 <h4 class="my-1 float-left">Mapato ya Jumamosi</h4>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.incomes.store')): ?>
@@ -36,7 +40,7 @@
                                         <tr>
                                             <th>Mwezi</th>
                                             <th>Jumla ya Kiasi (TZS)</th>
-                                            <th>Vitendo</th>
+                                            <th class="not-printable">Vitendo</th>
                                         </tr>
                                     </thead>
                                     <tbody>

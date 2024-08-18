@@ -79,7 +79,7 @@
                             .css({
                                 'font-size': 'inherit',
                                 'width': '100%',
-                                'border': '1px solid #ddd',
+                                'border': '.5px solid #ddd',
                                 'border-collapse': 'collapse',
                             });
 
@@ -87,13 +87,13 @@
                             .css({
                                 'background-color': '#dfe1e4',
                                 'color': '#333',
-                                'border': '1px solid #ddd',
+                                'border': '.5px solid #ddd',
                                 'text-align': 'center'
                             });
                         
                         table.find('tbody td')
                             .css({
-                                'border': '1px solid #ddd',
+                                'border': '.5px solid #ddd',
                                 'text-align': 'center'
                             });
 

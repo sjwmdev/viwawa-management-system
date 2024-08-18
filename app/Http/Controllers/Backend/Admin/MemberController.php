@@ -253,7 +253,6 @@ class MemberController extends Controller
      */
     private function generateUniqueEmail()
     {
-        //$baseEmail = 'viwawa@mtzita.ac.tz';
         $count = User::where('email', 'LIKE', 'viwawa%mtzita.ac.tz')->count();
         return 'viwawa' . $count . '@mtzita.ac.tz';
     }
@@ -265,8 +264,22 @@ class MemberController extends Controller
      */
     private function generateUniquePhoneNumber()
     {
-        //$basePhoneNumber = '255000000000';
-        $count = User::where('phone_number', 'LIKE', '255000000%')->count();
-        return '255000000' . str_pad($count, 3, '0', STR_PAD_LEFT);
+        $basePhoneNumber = '255000000000';
+
+        do {
+            // Generate a random number between 0 and 999999999
+            $randomNumber = mt_rand(0, 999999999);
+
+            // Pad the random number with leading zeros to ensure it's 9 digits long
+            $randomNumberPadded = str_pad($randomNumber, 9, '0', STR_PAD_LEFT);
+
+            // Combine the base phone number with the padded random number
+            $phoneNumber = '255' . $randomNumberPadded;
+
+            // Check if the phone number already exists in the database
+            $exists = User::where('phone_number', $phoneNumber)->exists();
+        } while ($exists);
+
+        return $phoneNumber;
     }
 }

@@ -69,12 +69,24 @@
 
         .badge-size {
             padding: 0.5em 0.75em;
-            font-size: 0.875em;
+            font-size: 0.85em;
         }
 
         .table th,
         .table td {
             vertical-align: middle;
+        }
+
+        .table-td-sm {
+            font-size: 1rem
+        }
+
+        .table-td-md {
+            font-size: 1.1rem;
+        }
+
+        .table-td-lg {
+            font-size: 1.8rem;
         }
 
         .tfooter-mr {
@@ -121,6 +133,14 @@
             justify-content: center;
             align-items: center;
             height: 200px;
+        }
+
+        .badge.even-larger-badge {
+            font-size: 1.2em;
+        }
+
+        .badge.even-md-badge {
+            font-size: .7em;
         }
     </style>
 <?php $__env->stopSection(); ?>

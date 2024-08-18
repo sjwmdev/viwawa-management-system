@@ -60,7 +60,7 @@
                 <fieldset>
                     <legend>Taarifa za Mwanachama</legend>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><b>Jinsia:</b> <?php echo e($member->gender == 'male' ? 'M' : 'F'); ?></li>
+                        <li class="list-group-item"><b>Jinsia:</b> <?php echo e($member->gender == 'male' ? 'Kiume' : 'Kike'); ?></li>
                         <li class="list-group-item"><b>Makazi:</b> <?php echo e($member->residence); ?></li>
                         <li class="list-group-item"><b>Kazi:</b> <?php echo e(ucwords($member->occupation)); ?></li>
                         <li class="list-group-item"><b>Hali ya Ndoa:</b>
@@ -71,7 +71,7 @@
                             <?php elseif($member->family_status == 'widowed'): ?>
                                 Mjane/Mgane
                             <?php else: ?>
-                                Sijaoa/Sijaolewa
+                                Hajaoa/Hajaolewa
                             <?php endif; ?>
                         </li>
                         <li class="list-group-item"><b>Hali ya Uwanachama:</b>
@@ -99,13 +99,13 @@
                             <tbody>
                                 <?php $__currentLoopData = $member->contributions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contribution): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td><?php echo e(\Carbon\Carbon::parse($contribution->contributed_at)->format('F Y')); ?></td>
+                                        <td><?php echo e(\Carbon\Carbon::parse($contribution->date)->format('M')); ?></td>
                                         <td><?php echo e(number_format($contribution->paid_amount, 2)); ?> TZS</td>
                                         <td><?php echo e(number_format($contribution->remaining_amount, 2)); ?> TZS</td>
                                         <td>
                                             <span
                                                 class="badge badge-size <?php echo e(strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark'); ?>">
-                                                <?php echo e(strtolower($contribution->status) == 'completed' ? 'Imekamilika' : 'Haijakamilika'); ?>
+                                                <?php echo e(strtolower($contribution->status) == 'completed' ? 'Amekamilisha' : 'Hajakamilisha'); ?>
 
                                             </span>
                                         </td>
@@ -138,7 +138,7 @@
                                                         <li class="list-group-item"><b>Amesajiliwa na:</b>
                                                             <?php echo e($member->user->creator->full_name ?? '-'); ?></li>
                                                     <?php endif; ?>
-                                                    <li class="list-group-item"><b>Mwanachama 
+                                                    <li class="list-group-item"><b>Mwanachama
                                                         Tangu:</b>&nbsp;<?php echo e($member->user->created_at ?? '-'); ?>,
                                                         <?php echo e($member->user->created_at_human ?? '-'); ?></li>
                                                     <?php if($member->user && $member->user->updater && $member->user->updater->id != auth()->id()): ?>

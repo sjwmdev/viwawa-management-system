@@ -38,7 +38,7 @@
                                     <td>{{ number_format($contribution->remaining_amount, 2) }}</td>
                                     <td>
                                         <span
-                                            class="badge {{ strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark' }}">
+                                            class="badge badge-size {{ strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark' }}">
                                             {{ strtolower($contribution->status) == 'completed' ? 'Imekamilisha' : 'Hajakamilisha' }}
                                         </span>
                                     </td>

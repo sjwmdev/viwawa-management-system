@@ -40,7 +40,7 @@
                                 <tr>
                                     <td>{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</td>
                                     <td>{{ $item->description }}</td>
-                                    <td>{{ number_format($item->amount, 2) }} TZS</td>
+                                    <td>{{ number_format($item->amount, 2) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -12,7 +12,8 @@
                 <h4 class="my-1 float-left">Orodha ya Wanachama</h4>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.members.create')): ?>
                     <div class="btn-group btn-group-md float-right" role="group">
-                        <a href="<?php echo e(route('admin.members.create')); ?>" class="btn btn-outline-light" title="Ongeza Mwanachama Mpya">
+                        <a href="<?php echo e(route('admin.members.create')); ?>" class="btn btn-outline-light"
+                            title="Ongeza Mwanachama Mpya">
                             <i class="fas fa-fw fa-plus-circle" aria-hidden="true"></i>
                             Sajili Mwanachama Mpya
                         </a>
@@ -21,16 +22,16 @@
             </div>
             <div class="card-body datatable_wrapper">
                 <div class="table-responsive">
-                    <table id="datatable" class="table table-condensed table-striped table-hover">
+                    <table id="datatable" class="table table-condensed table-stripedz table-hover">
                         <thead>
                             <tr>
-                                <th width="5%">Namba.</th>
+                                <th>Namba</th>
                                 <th>Jina</th>
                                 <th>Jinsia</th>
                                 <th>Makazi</th>
                                 <th>Hali ya Ndoa</th>
                                 <th>Hali ya Uwanachama</th>
-                                <th class="not-printable" width="10%"></th>
+                                <th class="not-printable" width="15%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,7 +49,7 @@
                                         <?php elseif($member->family_status == 'widowed'): ?>
                                             Mjane/Mgane
                                         <?php else: ?>
-                                            Ameoa/Ameolewa
+                                            Hajaoa/Hajaolewa
                                         <?php endif; ?>
                                     </td>
                                     <td>

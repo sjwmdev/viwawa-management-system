@@ -33,7 +33,7 @@ class SetupSeeder extends Seeder
         $adminRole->syncPermissions([$adminPerm, $commonPerm]);
         $viwawaRole->syncPermissions($commonPerm);
 
-        // Create super user and assign roles
+        // Create (owner) super user and assign roles
         $super = User::firstOrCreate(
             [
                 'email' => 'sjwmatiko@gmail.com',
@@ -47,7 +47,7 @@ class SetupSeeder extends Seeder
         );
         $super->assignRole($superRole);
 
-        // Create admin user and assign roles
+        // Create (vms) admin user and assign roles
         $admin = User::firstOrCreate(
             [
                 'email' => 'admin@vms.ac.tz',

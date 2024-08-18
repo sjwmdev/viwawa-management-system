@@ -1,6 +1,10 @@
 <!-- All css -->
 <?php echo $__env->make('backend.components.index.allcss', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+<?php $__env->startSection('meta'); ?>
+    <meta name="report-title" content="Ripoti ya Rekodi za Mfumo">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
     <div class="container">
         <div class="row">

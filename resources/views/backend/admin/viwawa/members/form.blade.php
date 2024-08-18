@@ -37,9 +37,10 @@
                 <option value="">Chagua Hali ya Ndoa</option>
                 <option value="single"
                     {{ old('family_status', $member->family_status ?? '') === 'single' ? 'selected' : '' }}>
-                    Ameoa/Ameolewa</option>
+                    Hajaoa/Hajaolewa</option>
                 <option value="married"
-                    {{ old('family_status', $member->family_status ?? '') === 'married' ? 'selected' : '' }}>Ndoa
+                    {{ old('family_status', $member->family_status ?? '') === 'married' ? 'selected' : '' }}>
+                    Ameoa/Ameolewa
                 </option>
                 <option value="divorced"
                     {{ old('family_status', $member->family_status ?? '') === 'divorced' ? 'selected' : '' }}>Talaka
@@ -54,11 +55,25 @@
         </div>
     </div>
 
+    <!-- Occupation Field -->
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="occupation" class="control-label">Kazi</label>
-            <input type="text" name="occupation" class="form-control"
-                value="{{ old('occupation', $member->occupation ?? '') }}" placeholder="mfano: Mwanafunzi au Mfanyabiashara" required>
+            <select name="occupation" class="form-control select2" required>
+                <option value="">Chagua Kazi</option>
+                <option value="Mwanafunzi"
+                    {{ old('occupation', $member->occupation ?? '') === 'Mwanafunzi' ? 'selected' : '' }}>Mwanafunzi
+                </option>
+                <option value="Mfanyabiashara"
+                    {{ old('occupation', $member->occupation ?? '') === 'Mfanyabiashara' ? 'selected' : '' }}>
+                    Mfanyabiashara</option>
+                <option value="Mkulima"
+                    {{ old('occupation', $member->occupation ?? '') === 'Mkulima' ? 'selected' : '' }}>Mkulima</option>
+                <option value="Mfanyakazi"
+                    {{ old('occupation', $member->occupation ?? '') === 'Mfanyakazi' ? 'selected' : '' }}>Mfanyakazi
+                </option>
+                <!-- Add more occupations as needed -->
+            </select>
             @if ($errors->has('occupation'))
                 <span class="text-danger text-left">{{ $errors->first('occupation') }}</span>
             @endif
@@ -94,10 +109,25 @@
     </div>
 
     <div class="form-row mt-2">
+        <!-- Residence Field -->
         <div class="form-group col-md-6">
             <label for="residence" class="control-label">Makazi&nbsp;<span style="color:red">*</span></label>
-            <input type="text" name="residence" class="form-control"
-                value="{{ old('residence', $member->residence ?? '') }}" placeholder="mfano: Kigamboni, mjimwema" required>
+            <select name="residence" class="form-control select2" required>
+                <option value="">Chagua Makazi</option>
+                <option value="Kigamboni"
+                    {{ old('residence', $member->residence ?? '') === 'Kigamboni' ? 'selected' : '' }}>Kigamboni
+                </option>
+                <option value="Ilala" {{ old('residence', $member->residence ?? '') === 'Ilala' ? 'selected' : '' }}>
+                    Ilala</option>
+                <option value="Kinondoni"
+                    {{ old('residence', $member->residence ?? '') === 'Kinondoni' ? 'selected' : '' }}>Kinondoni
+                </option>
+                <option value="Temeke" {{ old('residence', $member->residence ?? '') === 'Temeke' ? 'selected' : '' }}>
+                    Temeke</option>
+                <option value="Ubungo" {{ old('residence', $member->residence ?? '') === 'Ubungo' ? 'selected' : '' }}>
+                    Ubungo</option>
+                <!-- Add more wards as needed -->
+            </select>
             @if ($errors->has('residence'))
                 <span class="text-danger text-left">{{ $errors->first('residence') }}</span>
             @endif
@@ -150,14 +180,14 @@
 </fieldset>
 
 @can('admin.members.store')
-<!-- Action Buttons -->
-<div class="form-group mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary btn-block">{{ $buttonText ?? 'Hifadhi' }}</button>
+    <!-- Action Buttons -->
+    <div class="form-group mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-block">{{ $buttonText ?? 'Hifadhi' }}</button>
+            </div>
         </div>
     </div>
-</div>
 @endcan
 
 <!-- Custom css -->

@@ -35,6 +35,11 @@
             color: white;
         }
 
+        .badge-size {
+            padding: 0.5em 0.75em;
+            font-size: 0.85em;
+        }
+        
         .list-group-item {
             border: none;
             padding: 0.75rem 1.25rem;

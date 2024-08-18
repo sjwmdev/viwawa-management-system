@@ -24,7 +24,7 @@
 
 <div class="form-group">
     <label for="member_id">Mwanachama</label>
-    <select name="member_id" id="member_id" class="form-control" required>
+    <select name="member_id" id="member_id" class="form-control select2" required>
         <?php $__currentLoopData = $members; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $member): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <option value="<?php echo e($member->id); ?>"
                 <?php echo e(isset($contribution) && $contribution->member_id == $member->id ? 'selected' : ''); ?>>

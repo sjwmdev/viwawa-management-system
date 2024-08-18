@@ -37,9 +37,10 @@
                 <option value="">Chagua Hali ya Ndoa</option>
                 <option value="single"
                     <?php echo e(old('family_status', $member->family_status ?? '') === 'single' ? 'selected' : ''); ?>>
-                    Ameoa/Ameolewa</option>
+                    Hajaoa/Hajaolewa</option>
                 <option value="married"
-                    <?php echo e(old('family_status', $member->family_status ?? '') === 'married' ? 'selected' : ''); ?>>Ndoa
+                    <?php echo e(old('family_status', $member->family_status ?? '') === 'married' ? 'selected' : ''); ?>>
+                    Ameoa/Ameolewa
                 </option>
                 <option value="divorced"
                     <?php echo e(old('family_status', $member->family_status ?? '') === 'divorced' ? 'selected' : ''); ?>>Talaka
@@ -54,11 +55,25 @@
         </div>
     </div>
 
+    <!-- Occupation Field -->
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="occupation" class="control-label">Kazi</label>
-            <input type="text" name="occupation" class="form-control"
-                value="<?php echo e(old('occupation', $member->occupation ?? '')); ?>" placeholder="mfano: Mwanafunzi au Mfanyabiashara" required>
+            <select name="occupation" class="form-control select2" required>
+                <option value="">Chagua Kazi</option>
+                <option value="Mwanafunzi"
+                    <?php echo e(old('occupation', $member->occupation ?? '') === 'Mwanafunzi' ? 'selected' : ''); ?>>Mwanafunzi
+                </option>
+                <option value="Mfanyabiashara"
+                    <?php echo e(old('occupation', $member->occupation ?? '') === 'Mfanyabiashara' ? 'selected' : ''); ?>>
+                    Mfanyabiashara</option>
+                <option value="Mkulima"
+                    <?php echo e(old('occupation', $member->occupation ?? '') === 'Mkulima' ? 'selected' : ''); ?>>Mkulima</option>
+                <option value="Mfanyakazi"
+                    <?php echo e(old('occupation', $member->occupation ?? '') === 'Mfanyakazi' ? 'selected' : ''); ?>>Mfanyakazi
+                </option>
+                <!-- Add more occupations as needed -->
+            </select>
             <?php if($errors->has('occupation')): ?>
                 <span class="text-danger text-left"><?php echo e($errors->first('occupation')); ?></span>
             <?php endif; ?>
@@ -94,10 +109,25 @@
     </div>
 
     <div class="form-row mt-2">
+        <!-- Residence Field -->
         <div class="form-group col-md-6">
             <label for="residence" class="control-label">Makazi&nbsp;<span style="color:red">*</span></label>
-            <input type="text" name="residence" class="form-control"
-                value="<?php echo e(old('residence', $member->residence ?? '')); ?>" placeholder="mfano: Kigamboni, mjimwema" required>
+            <select name="residence" class="form-control select2" required>
+                <option value="">Chagua Makazi</option>
+                <option value="Kigamboni"
+                    <?php echo e(old('residence', $member->residence ?? '') === 'Kigamboni' ? 'selected' : ''); ?>>Kigamboni
+                </option>
+                <option value="Ilala" <?php echo e(old('residence', $member->residence ?? '') === 'Ilala' ? 'selected' : ''); ?>>
+                    Ilala</option>
+                <option value="Kinondoni"
+                    <?php echo e(old('residence', $member->residence ?? '') === 'Kinondoni' ? 'selected' : ''); ?>>Kinondoni
+                </option>
+                <option value="Temeke" <?php echo e(old('residence', $member->residence ?? '') === 'Temeke' ? 'selected' : ''); ?>>
+                    Temeke</option>
+                <option value="Ubungo" <?php echo e(old('residence', $member->residence ?? '') === 'Ubungo' ? 'selected' : ''); ?>>
+                    Ubungo</option>
+                <!-- Add more wards as needed -->
+            </select>
             <?php if($errors->has('residence')): ?>
                 <span class="text-danger text-left"><?php echo e($errors->first('residence')); ?></span>
             <?php endif; ?>
@@ -150,14 +180,14 @@
 </fieldset>
 
 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.members.store')): ?>
-<!-- Action Buttons -->
-<div class="form-group mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <button type="submit" class="btn btn-primary btn-block"><?php echo e($buttonText ?? 'Hifadhi'); ?></button>
+    <!-- Action Buttons -->
+    <div class="form-group mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary btn-block"><?php echo e($buttonText ?? 'Hifadhi'); ?></button>
+            </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
 <!-- Custom css -->

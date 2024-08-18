@@ -1,14 +1,18 @@
-<!-- All css -->
 <?php echo $__env->make('backend.components.index.allcss', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+<?php $__env->startSection('meta'); ?>
+    <meta name="report-title" content="Ripoti ya Mapato Mengine">
+<?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
-        <div class="cardz">
+        <div class="cardz" style="max-height: 90vh; overflow-y: auto;">
             <div class="card-header">
                 <h3 class="my-1 float-left">Mapato Mengine</h3>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.incomes.store')): ?>
                     <div class="btn-group btn-group-md float-right" role="group">
-                        <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#addOtherIncomeModal">
+                        <button type="button" class="btn btn-outline-light" data-toggle="modal"
+                            data-target="#addOtherIncomeModal">
                             <i class="fas fa-plus-circle"></i> Ongeza Mapato
                         </button>
                     </div>
@@ -16,7 +20,6 @@
             </div>
             <div class="card-body">
                 <?php if($incomes->isEmpty()): ?>
-                    <!-- No Income Records Message -->
                     <div class="alert alert-light text-danger alert-md" role="alert">
                         Hakuna mapato yaliyorekodiwa.
                     </div>
@@ -31,35 +34,36 @@
                                 <h4>Mwaka <?php echo e($year); ?></h4>
                             </div>
                             <div class="card-body">
-                                <?php $__currentLoopData = $yearIncomes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php
-                                        $month = str_pad($income->month, 2, '0', STR_PAD_LEFT);
-                                        $groupKey = "{$income->year}-{$month}";
-                                    ?>
-                                    <h5 class="mt-3"><?php echo e(\Carbon\Carbon::create()->month($income->month)->format('F')); ?>
-
-                                    </h5>
-                                    <hr class="m-0 p-0">
-                                    <table id="datatable" class="table table-condensed table-striped">
-                                        <thead>
+                                <table id="datatable" class="table table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Mwezi</th>
+                                            <th>Kiasi (TZS)</th>
+                                            <th>Maelezo</th>
+                                            <th class="not-printable" style="width: 15%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $__currentLoopData = $yearIncomes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $income): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php
+                                                $month = str_pad($income->month, 2, '0', STR_PAD_LEFT);
+                                                $groupKey = "{$income->year}-{$month}";
+                                            ?>
                                             <tr>
-                                                <th>Tarehe</th>
-                                                <th>Kiasi (TZS)</th>
-                                                <th>Maelezo</th>
-                                                <th>Vitendo</th>
+                                                <td colspan="4">
+                                                    <h5 class="font-weight-bold pt-2"><?php echo e(\Carbon\Carbon::create()->month($income->month)->format('F')); ?></h5>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
                                             <?php if(isset($details[$groupKey])): ?>
                                                 <?php $__currentLoopData = $details[$groupKey]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
-                                                        <td><?php echo e(\Carbon\Carbon::parse($detail->date)->format('d M Y')); ?></td>
+                                                        <td><?php echo e(\Carbon\Carbon::parse($detail->date)->format('d/m/Y')); ?></td>
                                                         <td><?php echo e(number_format($detail->amount, 2)); ?> TZS</td>
                                                         <td><?php echo e($detail->description); ?></td>
                                                         <td>
-                                                            <button class="btn btn-outline-dark btn-md edit-btn"
-                                                                data-toggle="modal"
-                                                                data-target="#editIncomeModal<?php echo e($detail->id); ?>">Hariri</button>
+                                                            <button class="btn btn-outline-secondary btn-md edit-btn"
+                                                                    data-toggle="modal"
+                                                                    data-target="#editIncomeModal<?php echo e($detail->id); ?>">Hariri</button>
                                                         </td>
                                                     </tr>
 
@@ -87,33 +91,26 @@
                                                                         <?php echo method_field('PATCH'); ?>
 
                                                                         <div class="modal-body">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="amount<?php echo e($detail->id); ?>">Kiasi
-                                                                                            (TZS)
-                                                                                        </label>
-                                                                                        <input type="number" name="amount"
-                                                                                            id="amount<?php echo e($detail->id); ?>"
-                                                                                            class="form-control"
-                                                                                            value="<?php echo e($detail->amount); ?>"
-                                                                                            required>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="date<?php echo e($detail->id); ?>">Tarehe
-                                                                                            ya Mapato</label>
-                                                                                        <input type="date" name="date"
-                                                                                            id="date<?php echo e($detail->id); ?>"
-                                                                                            class="form-control"
-                                                                                            value="<?php echo e(\Carbon\Carbon::parse($detail->date)->format('Y-m-d') ?? ''); ?>"
-                                                                                            required>
-                                                                                    </div>
-                                                                                </div>
+                                                                            <div class="form-group">
+                                                                                <label for="amount<?php echo e($detail->id); ?>">Kiasi
+                                                                                    (TZS)
+                                                                                </label>
+                                                                                <input type="number" name="amount"
+                                                                                    id="amount<?php echo e($detail->id); ?>"
+                                                                                    class="form-control"
+                                                                                    value="<?php echo e($detail->amount); ?>" required>
                                                                             </div>
+
+                                                                            <div class="form-group">
+                                                                                <label for="date<?php echo e($detail->id); ?>">Tarehe
+                                                                                    ya Mapato</label>
+                                                                                <input type="date" name="date"
+                                                                                    id="date<?php echo e($detail->id); ?>"
+                                                                                    class="form-control"
+                                                                                    value="<?php echo e(\Carbon\Carbon::parse($detail->date)->format('Y-m-d') ?? ''); ?>"
+                                                                                    required>
+                                                                            </div>
+
                                                                             <div class="form-group">
                                                                                 <label
                                                                                     for="description<?php echo e($detail->id); ?>">Maelezo
@@ -141,19 +138,15 @@
                                                     <td colspan="4" class="text-center">Hakuna mapato kwa mwezi huu.</td>
                                                 </tr>
                                             <?php endif; ?>
-                                        </tbody>
-                                        <tfoot>
                                             <tr>
                                                 <td class="text-right"><strong>Jumla ya Mwezi:</strong></td>
                                                 <td colspan="3">
-                                                    <strong><?php echo e(number_format($details[$groupKey]->sum('amount'), 2)); ?>
-
-                                                        TZS</strong>
+                                                    <strong><?php echo e(number_format($details[$groupKey]->sum('amount'), 2)); ?> TZS</strong>
                                                 </td>
                                             </tr>
-                                        </tfoot>
-                                    </table>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -177,20 +170,16 @@
                     <form action="<?php echo e(route('admin.incomes.store')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="amount">Kiasi (TZS)</label>
-                                        <input type="number" name="amount" id="amount" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="date">Tarehe ya Mapato</label>
-                                        <input type="date" name="date" id="date" class="form-control" required>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="amount">Kiasi (TZS)</label>
+                                <input type="number" name="amount" id="amount" class="form-control" required>
                             </div>
+
+                            <div class="form-group">
+                                <label for="date">Tarehe ya Mapato</label>
+                                <input type="date" name="date" id="date" class="form-control" required>
+                            </div>
+
                             <div class="form-group">
                                 <label for="description">Maelezo (Hiari)</label>
                                 <textarea name="description" id="description" class="form-control"></textarea>

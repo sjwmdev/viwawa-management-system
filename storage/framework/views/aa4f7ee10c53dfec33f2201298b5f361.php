@@ -1,9 +1,13 @@
 <!-- All css -->
 <?php echo $__env->make('backend.components.index.allcss', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+<?php $__env->startSection('meta'); ?>
+    <meta name="report-title" content="Ripoti ya Matumizi ya Mfuko">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
-        <div class="card" style="max-height: 80vh; overflow-y: auto;">
+        <div class="card" style="max-height: 90vh; overflow-y: auto;">
             <div class="card-header">
                 <h4 class="my-1 float-left">Matumizi ya Mfuko</h4>
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin.expenditures.store')): ?>
@@ -34,7 +38,7 @@
                                 <tr>
                                     <td><?php echo e(\Carbon\Carbon::parse($item->date)->format('d M Y')); ?></td>
                                     <td><?php echo e($item->description); ?></td>
-                                    <td><?php echo e(number_format($item->amount, 2)); ?> TZS</td>
+                                    <td><?php echo e(number_format($item->amount, 2)); ?></td>
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </tbody>

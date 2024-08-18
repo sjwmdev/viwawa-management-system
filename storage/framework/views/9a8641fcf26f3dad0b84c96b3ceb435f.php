@@ -17,7 +17,6 @@
                     for (var i = 0; i < response.length; i++) {
                         html += '<a href="#" class="dropdown-item notification" data-notification-id="' + response[i].id + '">' +
                                 '<span class="notification-message">' + (response[i].message || 'No message') + '</span>' +
-                                '<span class="notification-close"><i class="fas fa-times"></i></span>' +
                                 '</a>';
                     }
 

@@ -1,6 +1,10 @@
 <!-- All css -->
 <?php echo $__env->make('backend.components.index.allcss', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+<?php $__env->startSection('meta'); ?>
+    <meta name="report-title" content="Ripoti ya Watumiaji Waliosajiliwa">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
     <div class="container-fluid">
         <div class="card">
@@ -32,7 +36,7 @@
                             <th>Jina</th>
                             <th>Anuani ya Barua Pepe</th>
                             <th>Majukumu</th>
-                            <th width="5%">Kitendo</th>
+                            <th class="not-printable" width="5%">Kitendo</th>
                         </tr>
                     </thead>
                     <tbody>

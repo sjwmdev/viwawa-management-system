@@ -36,7 +36,7 @@
                                     <td><?php echo e(number_format($contribution->remaining_amount, 2)); ?></td>
                                     <td>
                                         <span
-                                            class="badge <?php echo e(strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark'); ?>">
+                                            class="badge badge-size <?php echo e(strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark'); ?>">
                                             <?php echo e(strtolower($contribution->status) == 'completed' ? 'Imekamilisha' : 'Hajakamilisha'); ?>
 
                                         </span>

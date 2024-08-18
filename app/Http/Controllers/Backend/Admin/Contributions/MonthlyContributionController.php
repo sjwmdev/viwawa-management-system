@@ -7,6 +7,7 @@ use App\Models\Member;
 use App\Models\Contribution;
 use App\Models\ContributionType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class MonthlyContributionController extends Controller
@@ -24,17 +25,17 @@ class MonthlyContributionController extends Controller
             $totalMembers = Member::count();
 
             // Fetch the contributions grouped by year, month, and member
-            $contributions = Contribution::selectRaw('member_id, YEAR(date) as year, MONTH(date) as month, SUM(paid_amount) as total_paid, remaining_amount, status')
-                ->with(['member.user'])
-                ->whereYear('date', $currentYear)
-                ->whereHas('contributionType', function ($query) {
-                    $query->where('identifier', 'mwezi');
-                })
-                ->groupBy('member_id', 'year', 'month', 'remaining_amount', 'status')
-                ->orderBy('year', 'asc')
-                ->orderBy('month', 'asc')
-                ->orderBy('member_id', 'asc')
-                ->get();
+            $contributions = Contribution::select('id', 'member_id', DB::raw('YEAR(date) as year'), DB::raw('MONTH(date) as month'), DB::raw('SUM(paid_amount) as total_paid'), 'remaining_amount', 'status')
+            ->with(['member.user'])
+            ->whereYear('date', $currentYear)
+            ->whereHas('contributionType', function ($query) {
+                $query->where('identifier', 'mwezi');
+            })
+            ->groupBy('id', 'member_id', 'year', 'month', 'remaining_amount', 'status')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->orderBy('member_id', 'asc')
+            ->get();
 
             // Group contributions by month
             $months = $contributions->groupBy('month')->map(function ($monthGroup) use ($totalMembers) {

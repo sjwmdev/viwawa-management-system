@@ -1,6 +1,5 @@
 @extends('backend.layout.master')
 
-<!-- All css -->
 @include('backend.components.index.allcss')
 
 @section('meta')
@@ -14,7 +13,8 @@
                 <h3 class="my-1 float-left">Mapato Mengine</h3>
                 @can('admin.incomes.store')
                     <div class="btn-group btn-group-md float-right" role="group">
-                        <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#addOtherIncomeModal">
+                        <button type="button" class="btn btn-outline-light" data-toggle="modal"
+                            data-target="#addOtherIncomeModal">
                             <i class="fas fa-plus-circle"></i> Ongeza Mapato
                         </button>
                     </div>
@@ -22,7 +22,6 @@
             </div>
             <div class="card-body">
                 @if ($incomes->isEmpty())
-                    <!-- No Income Records Message -->
                     <div class="alert alert-light text-danger alert-md" role="alert">
                         Hakuna mapato yaliyorekodiwa.
                     </div>
@@ -37,34 +36,36 @@
                                 <h4>Mwaka {{ $year }}</h4>
                             </div>
                             <div class="card-body">
-                                @foreach ($yearIncomes as $income)
-                                    @php
-                                        $month = str_pad($income->month, 2, '0', STR_PAD_LEFT);
-                                        $groupKey = "{$income->year}-{$month}";
-                                    @endphp
-                                    <h5 class="mt-3">{{ \Carbon\Carbon::create()->month($income->month)->format('F') }}
-                                    </h5>
-                                    <hr class="m-0 p-0">
-                                    <table id="datatable" class="table table-condensed table-striped">
-                                        <thead>
+                                <table id="datatable" class="table table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Mwezi</th>
+                                            <th>Kiasi (TZS)</th>
+                                            <th>Maelezo</th>
+                                            <th class="not-printable" style="width: 15%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($yearIncomes as $income)
+                                            @php
+                                                $month = str_pad($income->month, 2, '0', STR_PAD_LEFT);
+                                                $groupKey = "{$income->year}-{$month}";
+                                            @endphp
                                             <tr>
-                                                <th>Tarehe</th>
-                                                <th>Kiasi (TZS)</th>
-                                                <th>Maelezo</th>
-                                                <th class="not-printable">Vitendo</th>
+                                                <td colspan="4">
+                                                    <h5 class="font-weight-bold pt-2">{{ \Carbon\Carbon::create()->month($income->month)->format('F') }}</h5>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
                                             @if (isset($details[$groupKey]))
                                                 @foreach ($details[$groupKey] as $detail)
                                                     <tr>
-                                                        <td>{{ \Carbon\Carbon::parse($detail->date)->format('d M Y') }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($detail->date)->format('d/m/Y') }}</td>
                                                         <td>{{ number_format($detail->amount, 2) }} TZS</td>
                                                         <td>{{ $detail->description }}</td>
                                                         <td>
-                                                            <button class="btn btn-outline-dark btn-md edit-btn"
-                                                                data-toggle="modal"
-                                                                data-target="#editIncomeModal{{ $detail->id }}">Hariri</button>
+                                                            <button class="btn btn-outline-secondary btn-md edit-btn"
+                                                                    data-toggle="modal"
+                                                                    data-target="#editIncomeModal{{ $detail->id }}">Hariri</button>
                                                         </td>
                                                     </tr>
 
@@ -92,33 +93,26 @@
                                                                         @method('PATCH')
 
                                                                         <div class="modal-body">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="amount{{ $detail->id }}">Kiasi
-                                                                                            (TZS)
-                                                                                        </label>
-                                                                                        <input type="number" name="amount"
-                                                                                            id="amount{{ $detail->id }}"
-                                                                                            class="form-control"
-                                                                                            value="{{ $detail->amount }}"
-                                                                                            required>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group">
-                                                                                        <label
-                                                                                            for="date{{ $detail->id }}">Tarehe
-                                                                                            ya Mapato</label>
-                                                                                        <input type="date" name="date"
-                                                                                            id="date{{ $detail->id }}"
-                                                                                            class="form-control"
-                                                                                            value="{{ \Carbon\Carbon::parse($detail->date)->format('Y-m-d') ?? '' }}"
-                                                                                            required>
-                                                                                    </div>
-                                                                                </div>
+                                                                            <div class="form-group">
+                                                                                <label for="amount{{ $detail->id }}">Kiasi
+                                                                                    (TZS)
+                                                                                </label>
+                                                                                <input type="number" name="amount"
+                                                                                    id="amount{{ $detail->id }}"
+                                                                                    class="form-control"
+                                                                                    value="{{ $detail->amount }}" required>
                                                                             </div>
+
+                                                                            <div class="form-group">
+                                                                                <label for="date{{ $detail->id }}">Tarehe
+                                                                                    ya Mapato</label>
+                                                                                <input type="date" name="date"
+                                                                                    id="date{{ $detail->id }}"
+                                                                                    class="form-control"
+                                                                                    value="{{ \Carbon\Carbon::parse($detail->date)->format('Y-m-d') ?? '' }}"
+                                                                                    required>
+                                                                            </div>
+
                                                                             <div class="form-group">
                                                                                 <label
                                                                                     for="description{{ $detail->id }}">Maelezo
@@ -146,18 +140,15 @@
                                                     <td colspan="4" class="text-center">Hakuna mapato kwa mwezi huu.</td>
                                                 </tr>
                                             @endif
-                                        </tbody>
-                                        <tfoot>
                                             <tr>
                                                 <td class="text-right"><strong>Jumla ya Mwezi:</strong></td>
                                                 <td colspan="3">
-                                                    <strong>{{ number_format($details[$groupKey]->sum('amount'), 2) }}
-                                                        TZS</strong>
+                                                    <strong>{{ number_format($details[$groupKey]->sum('amount'), 2) }} TZS</strong>
                                                 </td>
                                             </tr>
-                                        </tfoot>
-                                    </table>
-                                @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     @endforeach
@@ -181,20 +172,16 @@
                     <form action="{{ route('admin.incomes.store') }}" method="POST">
                         @csrf
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="amount">Kiasi (TZS)</label>
-                                        <input type="number" name="amount" id="amount" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="date">Tarehe ya Mapato</label>
-                                        <input type="date" name="date" id="date" class="form-control" required>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="amount">Kiasi (TZS)</label>
+                                <input type="number" name="amount" id="amount" class="form-control" required>
                             </div>
+
+                            <div class="form-group">
+                                <label for="date">Tarehe ya Mapato</label>
+                                <input type="date" name="date" id="date" class="form-control" required>
+                            </div>
+
                             <div class="form-group">
                                 <label for="description">Maelezo (Hiari)</label>
                                 <textarea name="description" id="description" class="form-control"></textarea>

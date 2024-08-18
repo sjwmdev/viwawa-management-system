@@ -24,7 +24,7 @@
 
 <div class="form-group">
     <label for="member_id">Mwanachama</label>
-    <select name="member_id" id="member_id" class="form-control" required>
+    <select name="member_id" id="member_id" class="form-control select2" required>
         @foreach ($members as $member)
             <option value="{{ $member->id }}"
                 {{ isset($contribution) && $contribution->member_id == $member->id ? 'selected' : '' }}>

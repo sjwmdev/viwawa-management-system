@@ -8,7 +8,7 @@
                 <h4 class="my-1 float-left">System Logs</h4>
                 <div class="btn-group btn-group-md float-right" role="group">
                     <a href="" class="btn btn-outline-light" title="Download Logs">
-                        <i class="fas fa-md fa-download"></i>&nbsp;&nbsp;Download Logs
+                        <i class="fas fa-md fa-trash"></i>&nbsp;&nbsp;Delete All Logs
                     </a>
                 </div>
             </div>

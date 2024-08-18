@@ -61,7 +61,7 @@
                 <fieldset>
                     <legend>Taarifa za Mwanachama</legend>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><b>Jinsia:</b> {{ $member->gender == 'male' ? 'M' : 'F' }}</li>
+                        <li class="list-group-item"><b>Jinsia:</b> {{ $member->gender == 'male' ? 'Kiume' : 'Kike' }}</li>
                         <li class="list-group-item"><b>Makazi:</b> {{ $member->residence }}</li>
                         <li class="list-group-item"><b>Kazi:</b> {{ ucwords($member->occupation) }}</li>
                         <li class="list-group-item"><b>Hali ya Ndoa:</b>
@@ -72,7 +72,7 @@
                             @elseif($member->family_status == 'widowed')
                                 Mjane/Mgane
                             @else
-                                Sijaoa/Sijaolewa
+                                Hajaoa/Hajaolewa
                             @endif
                         </li>
                         <li class="list-group-item"><b>Hali ya Uwanachama:</b>
@@ -100,13 +100,13 @@
                             <tbody>
                                 @foreach ($member->contributions as $contribution)
                                     <tr>
-                                        <td>{{ \Carbon\Carbon::parse($contribution->contributed_at)->format('F Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($contribution->date)->format('M') }}</td>
                                         <td>{{ number_format($contribution->paid_amount, 2) }} TZS</td>
                                         <td>{{ number_format($contribution->remaining_amount, 2) }} TZS</td>
                                         <td>
                                             <span
                                                 class="badge badge-size {{ strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark' }}">
-                                                {{ strtolower($contribution->status) == 'completed' ? 'Imekamilika' : 'Haijakamilika' }}
+                                                {{ strtolower($contribution->status) == 'completed' ? 'Amekamilisha' : 'Hajakamilisha' }}
                                             </span>
                                         </td>
                                     </tr>
@@ -138,7 +138,7 @@
                                                         <li class="list-group-item"><b>Amesajiliwa na:</b>
                                                             {{ $member->user->creator->full_name ?? '-' }}</li>
                                                     @endif
-                                                    <li class="list-group-item"><b>Mwanachama 
+                                                    <li class="list-group-item"><b>Mwanachama
                                                         Tangu:</b>&nbsp;{{ $member->user->created_at ?? '-' }},
                                                         {{ $member->user->created_at_human ?? '-' }}</li>
                                                     @if ($member->user && $member->user->updater && $member->user->updater->id != auth()->id())

@@ -60,7 +60,7 @@ services:
         networks:
             - sail
         volumes:
-            - phpmyadmin-data:/sessions
+            - 'phpmyadmin-data:/sessions'
 networks:
     sail:
         driver: bridge
