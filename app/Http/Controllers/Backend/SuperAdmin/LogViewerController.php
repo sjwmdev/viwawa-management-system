@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\SuperAdmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class LogViewerController extends Controller
 {
@@ -61,5 +62,30 @@ class LogViewerController extends Controller
         }
 
         return array_reverse($logs); // Reverse to show latest logs first
+    }
+
+    /**
+     * Delete all logs in the laravel.log file.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteLogs()
+    {
+        try {
+            $logFile = storage_path('logs/laravel.log');
+
+            if (File::exists($logFile)) {
+                File::put($logFile, ''); // Clear the log file
+                Log::info('All logs have been deleted by user ID: ' . auth()->id());
+            }
+
+            return redirect()->route('superadmin.system.logs.index')->with('success', 'All logs have been deleted.');
+        } catch (\Throwable $e) {
+            Log::error('Error occurred in LogViewerController@deleteLogs: ' . $e->getMessage(), [
+                'error' => $e->getMessage(),
+                'stack' => $e->getTraceAsString(),
+            ]);
+            return redirect()->route('superadmin.system.logs.index')->withErrors(['error' => 'Error occurred while deleting logs: ' . $e->getMessage()]);
+        }
     }
 }

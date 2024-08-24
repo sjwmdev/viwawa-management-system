@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Common;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
@@ -72,6 +73,27 @@ class NotificationController extends Controller
                 'stack' => $e->getTraceAsString(),
             ]);
             return response()->json(['success' => false, 'message' => 'Error occurred: ' . $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Clear all notifications for the authenticated user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function clearAll(Request $request)
+    {
+        try {
+            Notification::where('auth_id', auth()->id())->delete();
+
+            return response()->json(['success' => true, 'message' => 'Arifa zote zimeondolewa.']);
+        } catch (\Throwable $e) {
+            Log::error('Error occurred in NotificationController@clearAll: ' . $e->getMessage(), [
+                'error' => $e->getMessage(),
+                'stack' => $e->getTraceAsString(),
+            ]);
+            return response()->json(['success' => false, 'message' => 'Kuna tatizo limejitokeza: ' . $e->getMessage()]);
         }
     }
 

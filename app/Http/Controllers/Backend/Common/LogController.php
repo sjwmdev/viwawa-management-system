@@ -33,4 +33,25 @@ class LogController extends Controller
             return redirect()->route('common.dashboard')->withErrors('Imeshindikana kupakia orodha ya kumbukumbu. Tafadhali jaribu tena.');
         }
     }
+
+    /**
+     * Delete all logs.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroyAll()
+    {
+        try {
+            Log::truncate(); // Delete all logs from the database
+
+            return redirect()->route('logs.index')->with('success', 'Rekodi zote zimefutwa kwa mafanikio.');
+        } catch (\Exception $e) {
+            LogFacade::error('Error deleting all logs: ' . $e->getMessage(), [
+                'exception' => $e,
+                'request' => request()->all(),
+            ]);
+
+            return redirect()->route('common.logs.index')->withErrors('Imeshindikana kufuta rekodi zote. Tafadhali jaribu tena.');
+        }
+    }
 }

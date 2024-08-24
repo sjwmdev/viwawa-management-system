@@ -1,6 +1,10 @@
 <!-- All css -->
 <?php echo $__env->make('backend.components.index.allcss', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+<?php $__env->startSection('meta'); ?>
+    <meta name="report-title" content="Ripoti ya Ruhusa (Permissions) Zote">
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
     <div class="card">
         <div class="card-header">
@@ -21,7 +25,7 @@
                         <th width="5%">Na.</th>
                         <th>Jina</th>
                         <th>Mlinzi</th>
-                        <th width="5%" hidden>Vitendo</th>
+                        <th class="not-printable" width="5%" hidden>Vitendo</th>
                     </tr>
                 </thead>
                 <tbody>

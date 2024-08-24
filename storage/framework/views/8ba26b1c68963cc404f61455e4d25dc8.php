@@ -1,10 +1,16 @@
 <?php $__env->startSection('content'); ?>
     <div class="container p-4 shadow-sm rounded" style="background-color: #f0f4f8;">
-        <h1 class="mb-4 text-dark">Arifa</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark">Arifa</h1>
+            <?php if($notifications->count() > 1): ?>
+                <button id="clearAllBtn" class="btn btn-danger btn-sm" onclick="clearAllNotifications()">Futa Arifa
+                    Zote</button>
+            <?php endif; ?>
+        </div>
         <?php if($notifications->isEmpty()): ?>
             <div class="alert alert-info">Hakuna arifa zilizopatikana.</div>
         <?php else: ?>
-            <ul class="list-group">
+            <ul class="list-group" id="notificationList">
                 <?php $__currentLoopData = $notifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="list-group-item mb-3 shadow-sm" id="notification-<?php echo e($notification->id); ?>">
                         <div class="d-flex justify-content-between align-items-start">
@@ -140,6 +146,31 @@
 <!-- Custom js -->
 <?php $__env->startSection('js'); ?>
     <script>
+        function clearAllNotifications() {
+            if (confirm('Una uhakika unataka kufuta arifa zote?')) {
+                fetch('<?php echo e(route('common.notifications.clearAll')); ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('notificationList').innerHTML =
+                                '<div class="alert alert-info">Hakuna arifa zilizopatikana.</div>';
+                        } else {
+                            alert('Kuna tatizo limejitokeza, tafadhali jaribu tena.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Kuna tatizo limejitokeza, tafadhali jaribu tena.');
+                    });
+            }
+        }
+
         function markAsRead(notificationId) {
             fetch(`/notifications/mark-as-read/${notificationId}`, {
                     method: 'POST',
@@ -158,6 +189,7 @@
                     }
                 });
         }
+
         function removeNotification(notificationId) {
             fetch(`/notifications/remove-notification/${notificationId}`, {
                     method: 'POST',
@@ -175,4 +207,5 @@
         }
     </script>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('backend.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/html/resources/views/backend/common/notifications/index.blade.php ENDPATH**/ ?>

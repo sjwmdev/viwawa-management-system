@@ -34,10 +34,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend\Common', 'middleware'
             Route::get('/get-unread', 'NotificationController@getUnreadNotifications')->name('get-unread');
             Route::post('/mark-as-read/{notification}', 'NotificationController@markAsRead')->name('mark-as-read');
             Route::post('/remove-notification/{notification}', 'NotificationController@removeNotification')->name('remove');
+            Route::post('/clear-all', 'NotificationController@clearAll')->name('clearAll');
         });
 
     // System logs routes
     Route::get('/logs', 'LogController@index')->name('logs.index');
+    Route::delete('/logs/destroy-all', 'LogController@destroyAll')->name('logs.destroy.all');
 });
 
 // Super Admin Routes
@@ -52,6 +54,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend\SuperAdmin', 'prefix'
     // System logs
     Route::get('/system/logs', 'LogViewerController@index')->name('system.logs.index');
     Route::post('/system/logs/filter', 'LogViewerController@filter')->name('system.logs.filter');
+    Route::get('/delete', 'LogViewerController@deleteLogs')->name('system.logs.delete');
 });
 
 // Admin Routes

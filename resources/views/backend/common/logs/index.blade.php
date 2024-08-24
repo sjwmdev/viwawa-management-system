@@ -13,8 +13,20 @@
             <div class="col-lg-12">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="h4">Rekodi za Mfumo</h4>
+                        <h4 class="my-1 float-left">Rekodi za Mfumo</h4>
+                        @can('common.logs.destroy.all')
+                            <div class="btn-group btn-group-md float-right" role="group">
+                                <form action="{{ route('common.logs.destroy.all') }}" method="POST"
+                                    onsubmit="return confirm('Una uhakika unataka kufuta rekodi zote?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" style="float: right;">Futa Rekodi
+                                        Zote</button>
+                                </form>
+                            </div>
+                        @endcan
                     </div>
+
                     <div class="card-body">
                         @if ($logs->isEmpty())
                             <div class="alert alert-light text-danger" role="alert">

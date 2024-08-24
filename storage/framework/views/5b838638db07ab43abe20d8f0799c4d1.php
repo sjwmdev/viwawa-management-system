@@ -11,8 +11,20 @@
             <div class="col-lg-12">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="h4">Rekodi za Mfumo</h4>
+                        <h4 class="my-1 float-left">Rekodi za Mfumo</h4>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('common.logs.destroy.all')): ?>
+                            <div class="btn-group btn-group-md float-right" role="group">
+                                <form action="<?php echo e(route('common.logs.destroy.all')); ?>" method="POST"
+                                    onsubmit="return confirm('Una uhakika unataka kufuta rekodi zote?')">
+                                    <?php echo csrf_field(); ?>
+                                    <?php echo method_field('DELETE'); ?>
+                                    <button type="submit" class="btn btn-danger" style="float: right;">Futa Rekodi
+                                        Zote</button>
+                                </form>
+                            </div>
+                        <?php endif; ?>
                     </div>
+
                     <div class="card-body">
                         <?php if($logs->isEmpty()): ?>
                             <div class="alert alert-light text-danger" role="alert">
