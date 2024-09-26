@@ -10,10 +10,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="card" style="max-height: 90vh; overflow-y: auto;">
-            <div class="card-header">
-                <h4 class="my-1 float-left">Matumizi ya Mfuko</h4>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Matumizi ya Mfuko</h4>
                 @can('admin.expenditures.store')
-                    <div class="btn-group btn-group-md float-right" role="group">
+                    <div class="btn-group btn-group-md ml-auto" role="group">
                         <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#addMatumiziModal">
                             <i class="fas fa-plus-circle"></i> Ongeza Matumizi
                         </button>
@@ -23,7 +23,7 @@
             <div class="card-body">
                 @if ($expenditures->isEmpty())
                     <!-- No Expenditures Records Message -->
-                    <div class="alert alert-light text-danger alert-md" role="alert">
+                    <div class="alert alert-light text-dark alert-md" role="alert">
                         Hakuna matumizi yaliyorekodiwa.
                     </div>
                 @else

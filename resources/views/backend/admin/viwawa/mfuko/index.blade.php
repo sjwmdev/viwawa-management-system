@@ -11,17 +11,17 @@
     <div class="container-fluid">
         <div class="card" style="max-height: 90vh; overflow-y: auto;">
             <div class="card-header">
-                <h4 class="my-1 float-left">Balance ya Mfuko</h4>
+                <h5 class="my-1 float-left">Balance ya Mfuko</h5>
                 @can('admin.mfuko-balance.calculate')
-                    <button id="calculateBalanceBtn" class="btn btn-light float-right calculate-btn">Pakua Salio</button>
+                    <button id="calculateBalanceBtn" class="btn btn-outline-light float-right calculate-btn"><i class="fa fa-md fa-download" aria-hidden="true"></i>&nbsp;&nbsp;Pakua Salio</button>
                 @endcan
             </div>
             <div class="card-body">
                 @if ($balance)
                     <div class="row mb-4">
                         <div class="col-md-12 text-center">
-                            <h2 class="display-4 font-weight-bold text-success">
-                                {{ number_format($balance->total_balance, 2) }} TZS</h2>
+                            <h4 class="display-5 font-weight-bold text-secondary">
+                                {{ number_format($balance->total_balance, 2) }} TZS</h4>
                             <p class="text-muted">Tarehe ya Maingizo: {{ $balance->date->format('d M Y') }}</p>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                  <h4>Mapato na Matumizi</h4>
+                                  <h5>Mapato na Matumizi</h5>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-hover">
@@ -64,7 +64,7 @@
                     </div>
                 @else
                 <!-- No Mfuko Balance Records Message -->
-                <div class="alert alert-light text-danger alert-md" role="alert">
+                <div class="alert alert-light text-dark alert-md" role="alert">
                     Hakuna rekodi ya salio iliyopo.
                 </div>
                 @endif

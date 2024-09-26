@@ -6,11 +6,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="card mx-auto">
-            <div class="card-header">
-                <h4 class="my-1 float-left">Maelezo ya Mwanachama</h4>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Maelezo ya Mwanachama</h4>
 
-                <div class="float-right">
-                    <div class="btn-group btn-group-md" role="group">
+                    <div class="btn-group btn-group-md ml-auto" role="group">
                         @can('admin.members.index')
                             <a href="{{ route('admin.members.index') }}" class="btn btn-outline-light"
                                 title="Orodha ya Wanachama Wote">
@@ -23,7 +22,6 @@
                             </a>
                         @endcan
                     </div>
-                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -101,8 +99,8 @@
                                 @foreach ($member->contributions as $contribution)
                                     <tr>
                                         <td>{{ \Carbon\Carbon::parse($contribution->date)->format('M') }}</td>
-                                        <td>{{ number_format($contribution->paid_amount, 2) }} TZS</td>
-                                        <td>{{ number_format($contribution->remaining_amount, 2) }} TZS</td>
+                                        <td>{{ number_format($contribution->paid_amount, 2) }}</td>
+                                        <td>{{ number_format($contribution->remaining_amount, 2) }}</td>
                                         <td>
                                             <span
                                                 class="badge badge-size {{ strtolower($contribution->status) == 'completed' ? 'badge-success' : 'badge-warning text-dark' }}">

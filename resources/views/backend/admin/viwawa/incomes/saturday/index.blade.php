@@ -10,10 +10,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="cardz" style="max-height: 90vh; overflow-y: auto;">
-            <div class="card-header">
-                <h4 class="my-1 float-left">Mapato ya Jumamosi</h4>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Mapato ya Jumamosi</h4>
                 @can('admin.incomes.store')
-                    <div class="btn-group btn-group-md float-right" role="group">
+                    <div class="btn-group btn-group-md ml-auto" role="group">
                         <button type="button" class="btn btn-outline-light" data-toggle="modal" data-target="#addIncomeModal">
                             <i class="fas fa-plus-circle"></i> Ongeza Mapato
                         </button>
@@ -23,7 +23,7 @@
             <div class="card-body">
                 @if ($incomes->isEmpty())
                     <!-- No Income Records Message -->
-                    <div class="alert alert-light text-danger alert-md" role="alert">
+                    <div class="alert alert-light text-dark alert-md" role="alert">
                         Hakuna mapato iliyorekodiwa.
                     </div>
                 @else

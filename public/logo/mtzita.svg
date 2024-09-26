@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 40">
+    <style>
+        text {
+            font-family: 'Source Sans Pro', sans-serif; /* Use the chosen font */
+            font-size: 28px;
+            font-weight: 600;
+            fill: #F0F0F0; /* Set text color to a slightly off-white */
+        }
+    </style>
+    <rect width="100%" height="100%" fill="transparent" /> <!-- Background color for contrast -->
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" lengthAdjust="spacingAndGlyphs" textLength="150">
+     Mt. Zita
+    </text>
+</svg>

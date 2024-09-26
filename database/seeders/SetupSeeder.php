@@ -50,7 +50,7 @@ class SetupSeeder extends Seeder
         // Create (vms) admin user and assign roles
         $admin = User::firstOrCreate(
             [
-                'email' => 'admin@vms.ac.tz',
+                'email' => 'admin@vms.massa.host',
             ],
             [
                 'first_name' => 'Viwawa',

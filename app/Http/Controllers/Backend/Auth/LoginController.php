@@ -44,7 +44,8 @@ class LoginController extends Controller
                 // Check for intended URL to prevent redirect loop
                 $intendedUrl = session()->pull('url.intended', route('common.dashboard'));
 
-                return redirect()->to($intendedUrl)->with('success', 'Umefanikiwa kuingia. Karibu!');
+                // return redirect()->to($intendedUrl)->with('success', 'Umefanikiwa kuingia. Karibu!');
+                return redirect()->to($intendedUrl)->with('success','');
             }
 
             return back()

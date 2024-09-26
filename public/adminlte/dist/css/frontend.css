@@ -1,0 +1,242 @@
+/* General Styling */
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #2C3E50;
+    /* Dark Matisse-like blue */
+    padding: 5px 10px;
+    border-bottom: 2px solid #1A2732;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand .brand-image {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand span {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar .navbar-nav h5 {
+    color: white;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 10px 20px;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-toggle {
+    font-weight: 600;
+    color: white !important;
+    padding: 8px 12px;
+    background-color: #1A2732;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    background-color: #405A6A;
+}
+
+.dropdown-menu {
+    background-color: #1A2732;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu .dropdown-item {
+    color: white;
+    padding: 10px 15px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #2C3E50;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav.ml-auto {
+        margin-left: 0;
+        /* Ensures dropdown stays aligned with the title */
+    }
+
+    .dropdown-toggle {
+        margin-left: 10px;
+        /* Give space from the left when collapsed */
+    }
+}
+
+/* Print Button Styling */
+#printButton {
+    padding: 10px 20px;
+    background-color: #2C3E50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    float: right;
+}
+
+#printButton:hover {
+    background-color: #405A6A;
+}
+
+/* Share Button Styling */
+#shareButton {
+    padding: 10px 20px;
+    background-color: #2C3E50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    float: right;
+}
+
+#shareButton:hover {
+    background-color: #405A6A;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--matisse, #2C3E50);
+    color: white;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px 5px 0 0;
+}
+
+/* Month Filter Button Styles */
+.month-filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.month-filter-container .btn {
+    flex: 1 1 20%;
+    min-width: 100px;
+    margin: 5px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .month-filter-container .btn {
+        flex: 1 1 30%;
+        /* 3 per row on tablets */
+    }
+}
+
+@media (max-width: 576px) {
+    .month-filter-container .btn {
+        flex: 1 1 45%;
+        /* 2 per row on small screens */
+    }
+}
+
+.btn-outline-secondary {
+    color: var(--matisse, #2C3E50);
+    border-color: var(--matisse, #2C3E50);
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-primary {
+    background-color: var(--matisse, #2C3E50);
+    color: white;
+}
+
+/* Table Styles */
+.table-responsive {
+    margin-top: 10px;
+}
+
+.table {
+    background-color: #ffffff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.table thead th {
+    background-color: var(--matisse, #2C3E50);
+    /* background-color: var(--matisse, #d4d5d5); */
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+    background-color: #e1ecf4;
+}
+
+.table td {
+    padding: 10px 12px;
+    color: var(--zeus, #333);
+}
+
+/* Pagination Styling */
+.dataTables_paginate .pagination li a {
+    padding: 5px 10px;
+    margin: 0 3px;
+    font-size: 14px;
+    color: var(--matisse, #2C3E50);
+    border-radius: 5px;
+}
+
+.dataTables_paginate .pagination li a:hover,
+.dataTables_paginate .pagination li.active a {
+    background-color: var(--matisse, #2C3E50);
+    color: white;
+}
+
+/* Footer Styling */
+.main-footer {
+    background-color: #2C3E50;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border-top: 2px solid #1A2732;
+    margin-top: 50px;
+}

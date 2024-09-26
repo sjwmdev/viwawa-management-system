@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header" style="background-color: var(--matisse); color: white;">
-                <h4 class="my-1 float-left">Hariri Mchango wa: {{ $contribution->member->user->full_name}}</h4>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap" style="background-color: var(--matisse); color: white;">
+                <h4 class="my-1">Hariri Mchango wa: {{ $contribution->member->user->full_name}}</h4>
 
                 @can('admin.monthly.contributions.index')
-                    <div class="btn-group btn-group-md float-right" role="group">
+                    <div class="btn-group btn-group-md ml-auto" role="group">
                         <a href="{{ route('admin.monthly.contributions.index') }}" class="btn btn-outline-light" title="Michango yote">
                          Rudi Kwenye Orodha
                         </a>
@@ -30,7 +30,7 @@
                     @method('PATCH')
 
                     @include('backend.admin.viwawa.contributions.monthly.form')
-                    
+
                     @can('admin.contributions.update')
                         <div class="mt-4">
                             <button type="submit" class="btn btn-block btn-primary">Sasisha Mchango</button>

@@ -54,8 +54,8 @@
                                     <i class="fa fa-user-shield nav-icon"></i>
                                     <p>Haki</p>
                                 </a>
-                            </li>   
-                        @endcan  
+                            </li>
+                        @endcan
                     @endhasrole
 
                     @hasrole('admin')
@@ -88,7 +88,7 @@
 
                         @can('admin.monthly.contributions.index')
                             <!-- Contributions (Michango) -->
-                            <li class="nav-item {{ isMenuOpen(['admin.monthly.contributions']) }} mt-2">
+                            <li class="nav-item {{ isMenuOpen(['admin.monthly.contributions', 'admin.church.contributions']) }} mt-2">
                                 <a href="#" class="nav-link">
                                     <i class="fa fa-donate nav-icon"></i>
                                     <p title="Usimamizi wa Michango">
@@ -103,6 +103,14 @@
                                             <p>Michango ya Mwezi</p>
                                         </a>
                                     </li>
+                                    @can('admin.church.contributions.index')
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.church.contributions.index') }}" class="nav-link {{ isRouteActive('ujenzi/kanisa*') }}">
+                                                <i class="fa fa-church nav-icon"></i>
+                                                <p>Ujenzi wa Kanisa</p>
+                                            </a>
+                                        </li>
+                                    @endcan
                                 </ul>
                             </li>
                         @endcan
@@ -182,7 +190,7 @@
                             <!-- Attendance -->
                             <li class="nav-item {{ isMenuOpen(['admin.attendance']) }} mt-3">
                                 <a href="#" class="nav-link">
-                                    <i class="fa fa-check-square nav-icon"></i>
+                                    <i class="fa fa-calendar-week nav-icon"></i>
                                     <p title="Usimamizi wa Mahudhurio">
                                         Mahudhurio
                                         <i class="right fas fa-sm fa-caret-left"></i>
@@ -191,8 +199,8 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.attendance.index') }}" class="nav-link {{ isRouteActive('attendance*') }}">
-                                            <i class="fa fa-check-square nav-icon"></i>
-                                            <p>Mahudhurio ya Wanachama</p>
+                                            <i class="fa fa-calendar-alt nav-icon"></i>
+                                            <p>Jumamosi</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -228,7 +236,7 @@
                             </ul>
                         </li>
                     @endhasrole
-                    
+
                     @if (auth()->user()->hasAnyRole(['superadmin', 'admin', 'viwawa']))
                         <!-- Notifications -->
                         <li class="nav-header text-muted px-4 mt-2">Taarifa na Arifa</li>

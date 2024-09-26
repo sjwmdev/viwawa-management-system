@@ -8,13 +8,14 @@
 @section('content')
     <div class="container-fluid">
         <div class="card mx-auto" style="max-height: 90vh; overflow-y: auto;">
-            <div class="card-header text-white">
-                <h4 class="my-1 float-left">Ripoti ya Michango ya Mwezi</h4>
-                <div class="float-right">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Ripoti ya Michango ya Mwezi</h4>
+
+                <div class="btn-group btn-group-md ml-auto" role="group">
                     <form id="year-form" method="GET" action="{{ route('admin.monthlz.contributions.report') }}">
-                        <label for="year" class="mr-2 text-white">Chagua Mwaka:</label>
                         <select id="year" name="year" class="form-control"
                             onchange="document.getElementById('year-form').submit();">
+                            <option value="">Mwaka</option>
                             @foreach ($years as $year)
                                 <option value="{{ $year }}" {{ $currentYear == $year ? 'selected' : '' }}>
                                     {{ $year }}
@@ -26,8 +27,8 @@
             </div>
             <div class="card-body">
                 @if ($contributions->isEmpty())
-                    <div class="alert alert-light text-danger text-center" role="alert">
-                        Hakuna michango ya mwezi kwa mwaka ulioteuliwa.
+                    <div class="alert alert-light text-dark text-center" role="alert">
+                        Hakuna ripoti ya michango ya mwezi kwa mwaka ulichaguliwa.
                     </div>
                 @else
                     @foreach ($contributions->groupBy('member.user.full_name') as $memberName => $memberContributions)

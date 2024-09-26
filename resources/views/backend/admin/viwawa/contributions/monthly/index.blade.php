@@ -10,35 +10,33 @@
 @section('content')
     <div class="container-fluid">
         <div class="card mx-auto" style="max-height: 90vh; overflow-y: auto;">
-            <div class="card-header text-white">
-                <h4 class="my-1 float-left">Michango ya Mwezi</h4>
-                @can('admin.monthly.contributions.index')
-                    <div class="btn-group btn-group-md float-right" role="group">
-                        <form id="year-form" method="GET" action="{{ route('admin.monthly.contributions.index') }}">
-                            <label for="year" class="mr-2 text-white">Chagua Mwaka:</label>
-                            <select id="year" name="year" class="form-control"
-                                onchange="document.getElementById('year-form').submit();">
-                                <option value="">Mwaka</option>
-                                @foreach ($years as $year)
-                                    <option value="{{ $year }}" {{ $currentYear == $year ? 'selected' : '' }}>
-                                        {{ $year }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </form>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Michango ya Mwezi</h4>
+
+                    <div class="btn-group btn-group-md ml-auto" role="group">
+                        @can('admin.monthly.contributions.index')
+                            <form id="year-form" method="GET" action="{{ route('admin.monthly.contributions.index') }}" class="mr-2">
+                                <select id="year" name="year" class="form-control"
+                                    onchange="document.getElementById('year-form').submit();">
+                                    <option value="">Mwaka</option>
+                                    @foreach ($years as $year)
+                                        <option value="{{ $year }}" {{ $currentYear == $year ? 'selected' : '' }}>
+                                            {{ $year }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </form>
+                        @endcan
+                        @can('admin.monthly.contributions.create')
+                            <a href="{{ route('admin.monthly.contributions.create') }}" class="btn btn-light">
+                                <i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Ongeza Mchango
+                            </a>
+                        @endcan
                     </div>
-                @endcan
-                @can('admin.monthly.contributions.create')
-                    <div class="btn-group btn-group-md float-right" role="group" style="margin-right: 50px; margin-top: 32px">
-                        <a href="{{ route('admin.monthly.contributions.create') }}" class="btn btn-light">
-                            <i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Ongeza Mchango
-                        </a>
-                    </div>
-                @endcan
             </div>
             <div class="card-body">
                 @if ($months->isEmpty())
-                    <div class="alert alert-light text-danger alert-md text-center" role="alert">
+                    <div class="alert alert-light text-dark alert-md text-center" role="alert">
                         Hakuna michango iliyopatikana kwa mwaka uliochaguliwa.
                     </div>
                 @else

@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <div class="card mx-auto" style="max-width: 1000px;">
-            <div class="card-header">
-                <h4 class="my-1 float-left">Jaza Taarifa za Mwanachama</h4>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Jaza Taarifa za Mwanachama</h4>
                 @can('admin.members.index')
-                    <div class="btn-group btn-group-sm float-right" role="group">
-                        <a href="{{ route('admin.members.index') }}" class="btn btn-outline-primary" title="List All">
+                    <div class="btn-group btn-group-sm ml-auto" role="group">
+                        <a href="{{ route('admin.members.index') }}" class="btn btn-outline-light" title="List All">
                             <i class=" fas fa-fw fa-th-list" aria-hidden="true"></i>
                         </a>
                     </div>

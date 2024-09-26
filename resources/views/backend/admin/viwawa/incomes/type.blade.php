@@ -6,10 +6,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="card mx-auto">
-            <div class="card-header">
-                <h4 class="my-1 float-left">Aina za Mapato</h4>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Aina za Mapato</h4>
                 @can('admin.incomes.type.store')
-                    <div class="btn-group btn-group-md float-right" role="group">
+                    <div class="btn-group btn-group-md ml-auto" role="group">
                         <button type="button" class="btn btn-outline-light" title="Ongeza Aina Mpya" data-toggle="modal" data-target="#addIncomeTypeModal">
                             <i class="fas fa-fw fa-plus-circle" aria-hidden="true"></i>
                             Ongeza Aina Mpya

@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Frontend Routes
+Route::namespace('App\Http\Controllers\Frontend')->group(function () {
+    // Ujenzi Wa Kanisa (Church Contribution)
+    Route::get('michango-ya-ujenzi-kanisa', 'ChurchContributionController@index')->name('frontend.church.contributions.index');
+});
+
 // Global Guest Routes
 Route::namespace('App\Http\Controllers\Backend\Auth')
     ->middleware('guest')
@@ -94,5 +100,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend\Admin', 'as' => 'admi
             Route::get('contributions/details', 'MonthlyContributionController@details')->name('contributions.details');
         });
         Route::get('monthlz/contributions/report', 'MonthlyContributionController@report')->name('monthlz.contributions.report');
+
+        // Wanajumuiya Ujenzi Contributions routes
+        Route::group(['prefix' => 'ujenzi', 'as' => 'church.'], function () {
+            Route::resource('kanisa', 'ChurchContributionController')->names('contributions');
+        });
     });
+
 });

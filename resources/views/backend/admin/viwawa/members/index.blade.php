@@ -10,10 +10,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="card mx-auto" style="max-height: 90vh; overflow-y: auto;">
-            <div class="card-header">
-                <h4 class="my-1 float-left">Orodha ya Wanachama</h4>
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Orodha ya Wanachama</h4>
                 @can('admin.members.create')
-                    <div class="btn-group btn-group-md float-right" role="group">
+                    <div class="btn-group btn-group-md ml-auto" role="group">
                         <a href="{{ route('admin.members.create') }}" class="btn btn-outline-light"
                             title="Ongeza Mwanachama Mpya">
                             <i class="fas fa-fw fa-plus-circle" aria-hidden="true"></i>

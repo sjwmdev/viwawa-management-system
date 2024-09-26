@@ -10,12 +10,13 @@
 @section('content')
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header">
-                <h4 class="my-1 float-left">Mapato ya Jumamosi Mwezi,
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+                <h4 class="my-1">Mapato ya Jumamosi Mwezi,
                     {{ \Carbon\Carbon::create()->month($month)->format('F') }} {{ $year }}</h4>
                 @can('admin.incomes.saturday')
-                    <a href="{{ route('admin.incomes.saturday') }}" class="btn btn-outline-light float-right">Rudi kwenye
-                        Orodha</a>
+                    <a href="{{ route('admin.incomes.saturday') }}" class="btn btn-outline-light" title="Rudi kwenye orodha">
+                        <i class="fas fa-fw fa-th-list" aria-hidden="true"></i>
+                    </a>
                 @endcan
             </div>
             <div class="card-body">

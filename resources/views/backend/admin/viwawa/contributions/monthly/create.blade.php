@@ -3,13 +3,14 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header" style="background-color: var(--matisse); color: white;">
-                <h4 class="my-1 float-left">Ongeza Mchango wa Mwezi</h4>
-                
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap" style="background-color: var(--matisse); color: white;">
+                <h4 class="my-1">Ongeza Mchango wa Mwezi</h4>
+
                 @can('admin.monthly.contributions.index')
-                    <div class="btn-group btn-group-md float-right" role="group">
-                        <a href="{{ route('admin.monthly.contributions.index') }}" class="btn btn-outline-light" title="Michango yote">
-                         Rudi Kwenye Orodha
+                    <div class="btn-group btn-group-md ml-auto" role="group">
+                        <a href="{{ route('admin.monthly.contributions.index') }}" class="btn btn-outline-light"
+                            title="Rudi kwenye orodha">
+                            <i class="fas fa-w fa-th-list" aria-hidden="true"></i>
                         </a>
                     </div>
                 @endcan
@@ -19,7 +20,7 @@
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
                         @if (isset($goalAmount))
-                            <div class="alert alert-light text-danger k-lengo">
+                            <div class="alert alert-light text-dark k-lengo">
                                 Kiasi cha Lengo: {{ number_format($goalAmount, 2) }}
                             </div>
                         @endif
