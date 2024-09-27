@@ -10,7 +10,7 @@
                 <h4 class="my-1">Ripoti ya Michango ya Mwezi</h4>
 
                 <div class="btn-group btn-group-md ml-auto" role="group">
-                    <form id="year-form" method="GET" action="<?php echo e(route('admin.monthlz.contributions.report')); ?>">
+                    <form class="mr-2" id="year-form" method="GET" action="<?php echo e(route('admin.monthlz.contributions.report')); ?>">
                         <select id="year" name="year" class="form-control"
                             onchange="document.getElementById('year-form').submit();">
                             <option value="">Mwaka</option>
@@ -22,6 +22,9 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </form>
+                    <a href="<?php echo e(route('frontend.viwawa.contributions.monthly.index')); ?>" class="btn btn-light" title="Tazama michango">
+                    <i class="fas fa-fw fa-home" aria-hidden="true"></i>
+                </a>
                 </div>
             </div>
             <div class="card-body">

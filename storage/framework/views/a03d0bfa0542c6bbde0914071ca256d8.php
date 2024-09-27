@@ -1,18 +1,17 @@
-<?php $__env->startSection('title', 'Michango ya Ujenzi'); ?>
+<?php $__env->startSection('title', 'Michango ya Mwezi - Viwawa'); ?>
 
-<?php $__env->startSection('brandtitle', 'Marko Mwinjili - JY Mt.Zita'); ?>
-<?php $__env->startSection('header', 'Michango ya Ujenzi wa Kanisa'); ?>
+<?php $__env->startSection('brandtitle', 'Viwawa Mt.Zita'); ?>
+<?php $__env->startSection('header', 'Michango ya Kila Mwezi'); ?>
 
 <?php $__env->startSection('chaguamwaka'); ?>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-            <a id="dropdownYear" href="#" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false" class="nav-link dropdown-toggle">
+            <a id="dropdownYear" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                class="nav-link dropdown-toggle">
                 Chagua Mwaka
             </a>
             <ul aria-labelledby="dropdownYear" class="dropdown-menu border-0 shadow">
-                <form id="yearForm" method="GET"
-                    action="<?php echo e(route('frontend.church.contributions.index')); ?>">
+                <form id="yearForm" method="GET" action="<?php echo e(route('frontend.viwawa.contributions.monthly.index')); ?>">
                     <?php for($i = now()->year; $i >= now()->year - 4; $i--): ?>
                         <li>
                             <a href="javascript:void(0)" onclick="selectYear(<?php echo e($i); ?>)"
@@ -23,8 +22,7 @@
                         </li>
                     <?php endfor; ?>
                     <!-- Hidden input to store selected year -->
-                    <input type="hidden" name="year" id="selectedYear"
-                        value="<?php echo e(request('year', now()->year)); ?>">
+                    <input type="hidden" name="year" id="selectedYear" value="<?php echo e(request('year', now()->year)); ?>">
                 </form>
             </ul>
         </li>
@@ -41,14 +39,14 @@
     <!-- Title Message -->
     <div class="alert alert-light mb-3">
         <?php if(request('year') && request('month')): ?>
-            <strong>Onyesho:</strong> Michango ya Ujenzi wa Kanisa kwa mwezi
+            <strong>Onyesho:</strong> Michango ya mwezi
             <?php echo e(\Carbon\Carbon::createFromFormat('m', request('month'))->locale('sw')->translatedFormat('F')); ?>
 
             mwaka <?php echo e(request('year')); ?>.
         <?php elseif(request('year')): ?>
-            <strong>Onyesho:</strong> Michango ya Ujenzi wa Kanisa kwa mwaka <?php echo e(request('year')); ?>.
+            <strong>Onyesho:</strong> Michango ya mwezi kwa mwaka <?php echo e(request('year')); ?>.
         <?php else: ?>
-            <strong>Onyesho:</strong> Michango yote ya Ujenzi wa Kanisa.
+            <strong>Onyesho:</strong> Michango ya kila mwezi ya mwanachama.
         <?php endif; ?>
     </div>
 
@@ -58,13 +56,22 @@
             <div class="month-filter-container mb-4">
                 <?php
                     $months = [
-                        '01' => 'Januari', '02' => 'Februari', '03' => 'Machi', '04' => 'Aprili',
-                        '05' => 'Mei', '06' => 'Juni', '07' => 'Julai', '08' => 'Agosti',
-                        '09' => 'Septemba', '10' => 'Oktoba', '11' => 'Novemba', '12' => 'Desemba'
+                        '01' => 'Januari',
+                        '02' => 'Februari',
+                        '03' => 'Machi',
+                        '04' => 'Aprili',
+                        '05' => 'Mei',
+                        '06' => 'Juni',
+                        '07' => 'Julai',
+                        '08' => 'Agosti',
+                        '09' => 'Septemba',
+                        '10' => 'Oktoba',
+                        '11' => 'Novemba',
+                        '12' => 'Desemba',
                     ];
                 ?>
                 <?php $__currentLoopData = $months; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $num => $monthName): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <a href="<?php echo e(route('frontend.church.contributions.index', ['year' => request('year', now()->year), 'month' => $num])); ?>"
+                    <a href="<?php echo e(route('frontend.viwawa.contributions.monthly.index', ['year' => request('year', now()->year), 'month' => $num])); ?>"
                         class="btn btn-outline-secondary <?php echo e(request('month') == $num ? 'btn-primary text-white' : ''); ?>">
                         <?php echo e($monthName); ?>
 
@@ -73,28 +80,31 @@
             </div>
 
             <div class="table-responsive">
-                <table id="datatable" class="table table-bordered table-condenseds table-hover">
+                <table id="datatable" class="table table-bordered table-condensed table-hover">
                     <thead>
                         <tr>
                             <th style="border: none;">#</th>
-                            <th class="text-nowrap" style="border: none;">Jina la Familia</th>
+                            <th class="text-nowrap" style="border: none;">Jina la Mwanachama</th>
                             <?php if(!request('month')): ?>
                                 <!-- Display all month columns if no month is selected -->
                                 <?php $__currentLoopData = $months; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $num => $monthName): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    
-                                    <th style="border: none;"><?php echo e($monthName); ?></th>
+                                    <th style="border: none;"><?php echo e(mb_substr($monthName, 0, 3)); ?></th>
+                                    <!-- Abbreviated month names -->
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <?php else: ?>
                                 <!-- Display only the selected month if a month is selected -->
-                                <th style="border: none;"><?php echo e(\Carbon\Carbon::createFromFormat('m', request('month'))->locale('sw')->translatedFormat('F')); ?></th>
+                                <th style="border: none;">
+                                    <?php echo e(\Carbon\Carbon::createFromFormat('m', request('month'))->locale('sw')->translatedFormat('F')); ?>
+
+                                </th>
                             <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $__currentLoopData = $contributions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $family => $contributionByMonth): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = $contributions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $member => $contributionByMonth): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
                                 <td><?php echo e($loop->iteration); ?></td>
-                                <td class="text-nowrap"><?php echo e($family); ?></td>
+                                <td class="text-nowrap"><?php echo e($member); ?></td>
                                 <?php if(!request('month')): ?>
                                     <!-- Display contributions for all months -->
                                     <?php $__currentLoopData = $months; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $num => $month): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -105,9 +115,8 @@
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php else: ?>
                                     <!-- Display only the contribution for the selected month -->
-                                    <?php $selectedMonth = request('month'); ?>
                                     <td>
-                                        <?php echo e(isset($contributionByMonth[$selectedMonth]) ? number_format($contributionByMonth[$selectedMonth], 2) : ''); ?>
+                                        <?php echo e(isset($contributionByMonth[request('month')]) ? number_format($contributionByMonth[request('month')], 2) : ''); ?>
 
                                     </td>
                                 <?php endif; ?>
@@ -131,17 +140,18 @@
                 "paging": true,
                 "pageLength": 10,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": false,
                 "info": false,
                 "autoWidth": false,
                 "responsive": true,
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Swahili.json"
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Swahili.json",
+                    "search": "Tafuata Jina lako: ",
                 }
             });
         });
     </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('frontend.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sjwmdev/dev/viwawa/resources/views/frontend/church/contributions/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('frontend.layout.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sjwmdev/dev/viwawa/resources/views/frontend/viwawa/contributions/monthly/index.blade.php ENDPATH**/ ?>

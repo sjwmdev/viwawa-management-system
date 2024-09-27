@@ -1,9 +1,9 @@
 @extends('frontend.layout.master')
 
-@section('title', 'Michango ya Ujenzi')
+@section('title', 'Michango ya Mwezi - Viwawa')
 
-@section('brandtitle', 'Marko Mwinjili - JY Mt.Zita')
-@section('header', 'Michango ya Ujenzi wa Kanisa')
+@section('brandtitle', 'Viwawa Mt.Zita')
+@section('header', 'Michango ya Kila Mwezi')
 
 @section('chaguamwaka')
     <ul class="navbar-nav ml-auto">
@@ -13,7 +13,7 @@
                 Chagua Mwaka
             </a>
             <ul aria-labelledby="dropdownYear" class="dropdown-menu border-0 shadow">
-                <form id="yearForm" method="GET" action="{{ route('frontend.church.contributions.index') }}">
+                <form id="yearForm" method="GET" action="{{ route('frontend.viwawa.contributions.monthly.index') }}">
                     @for ($i = now()->year; $i >= now()->year - 4; $i--)
                         <li>
                             <a href="javascript:void(0)" onclick="selectYear({{ $i }})"
@@ -40,13 +40,13 @@
     <!-- Title Message -->
     <div class="alert alert-light mb-3">
         @if (request('year') && request('month'))
-            <strong>Onyesho:</strong> Michango ya Ujenzi wa Kanisa kwa mwezi
+            <strong>Onyesho:</strong> Michango ya mwezi
             {{ \Carbon\Carbon::createFromFormat('m', request('month'))->locale('sw')->translatedFormat('F') }}
             mwaka {{ request('year') }}.
         @elseif (request('year'))
-            <strong>Onyesho:</strong> Michango ya Ujenzi wa Kanisa kwa mwaka {{ request('year') }}.
+            <strong>Onyesho:</strong> Michango ya mwezi kwa mwaka {{ request('year') }}.
         @else
-            <strong>Onyesho:</strong> Michango yote ya Ujenzi wa Kanisa.
+            <strong>Onyesho:</strong> Michango ya kila mwezi ya mwanachama.
         @endif
     </div>
 
@@ -71,7 +71,7 @@
                     ];
                 @endphp
                 @foreach ($months as $num => $monthName)
-                    <a href="{{ route('frontend.church.contributions.index', ['year' => request('year', now()->year), 'month' => $num]) }}"
+                    <a href="{{ route('frontend.viwawa.contributions.monthly.index', ['year' => request('year', now()->year), 'month' => $num]) }}"
                         class="btn btn-outline-secondary {{ request('month') == $num ? 'btn-primary text-white' : '' }}">
                         {{ $monthName }}
                     </a>
@@ -79,16 +79,16 @@
             </div>
 
             <div class="table-responsive">
-                <table id="datatable" class="table table-bordered table-condenseds table-hover">
+                <table id="datatable" class="table table-bordered table-condensed table-hover">
                     <thead>
                         <tr>
                             <th style="border: none;">#</th>
-                            <th class="text-nowrap" style="border: none;">Jina la Familia</th>
+                            <th class="text-nowrap" style="border: none;">Jina la Mwanachama</th>
                             @if (!request('month'))
                                 <!-- Display all month columns if no month is selected -->
                                 @foreach ($months as $num => $monthName)
-                                    {{-- <th style="border: none;">{{ mb_substr($monthName, 0, 4) }}</th> --}}
-                                    <th style="border: none;">{{ $monthName }}</th>
+                                    <th style="border: none;">{{ mb_substr($monthName, 0, 3) }}</th>
+                                    <!-- Abbreviated month names -->
                                 @endforeach
                             @else
                                 <!-- Display only the selected month if a month is selected -->
@@ -99,10 +99,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($contributions as $family => $contributionByMonth)
+                        @foreach ($contributions as $member => $contributionByMonth)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="text-nowrap">{{ $family }}</td>
+                                <td class="text-nowrap">{{ $member }}</td>
                                 @if (!request('month'))
                                     <!-- Display contributions for all months -->
                                     @foreach ($months as $num => $month)
@@ -112,9 +112,8 @@
                                     @endforeach
                                 @else
                                     <!-- Display only the contribution for the selected month -->
-                                    @php $selectedMonth = request('month'); @endphp
                                     <td>
-                                        {{ isset($contributionByMonth[$selectedMonth]) ? number_format($contributionByMonth[$selectedMonth], 2) : '' }}
+                                        {{ isset($contributionByMonth[request('month')]) ? number_format($contributionByMonth[request('month')], 2) : '' }}
                                     </td>
                                 @endif
                             </tr>
@@ -137,13 +136,14 @@
                 "paging": true,
                 "pageLength": 10,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": false,
                 "info": false,
                 "autoWidth": false,
                 "responsive": true,
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Swahili.json"
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Swahili.json",
+                    "search": "Tafuata Jina lako: ",
                 }
             });
         });

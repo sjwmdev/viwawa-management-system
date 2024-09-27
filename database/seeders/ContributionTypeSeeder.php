@@ -25,7 +25,7 @@ class ContributionTypeSeeder extends Seeder
                 'name' => 'sadaka ya ujenzi',
                 'goal' => 'Kuchangia ujenzi wa kanisa jipya au ukarabati wa majengo ya kanisa.',
                 'identifier' => 'ujenzikanisa',
-                'goal_amount' => 2000000.00,
+                'goal_amount' => 10000.00,
             ],
             [
                 'name' => 'sadaka ya shukrani',

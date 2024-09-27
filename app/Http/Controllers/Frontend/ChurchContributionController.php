@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Log;
 
 class ChurchContributionController extends Controller
 {
+
+    /**
+     * Display a listing of the church contributions.
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
     public function index(Request $request)
     {
         try {
@@ -17,26 +24,32 @@ class ChurchContributionController extends Controller
             $month = $request->get('month', null);
             $search = $request->get('search', '');
 
-            // Query contributions by year and optionally by month
+            // Fetch distinct family names and their contributions grouped by month
             $contributions = ChurchContribution::where('year', $year)
                 ->when($month, function ($query, $month) {
                     return $query->where('month', $month); // Filter by month if specified
                 })
                 ->when($search, function ($query, $search) {
-                    return $query->where('family_name', 'like', '%' . $search . '%'); // Filter by family name if search is present
+                    return $query->where('family_name', 'like', '%' . $search . '%'); // Filter by family name
                 })
-                ->orderBy('family_name')
-                ->get();
+                ->get()
+                ->groupBy('family_name')
+                ->map(function ($familyContributions) {
+                    // Map contributions by month for each family
+                    $monthlyContributions = [];
+                    foreach ($familyContributions as $contribution) {
+                        $monthlyContributions[$contribution->month] = $contribution->amount;
+                    }
+                    return $monthlyContributions;
+                });
 
-                return view('frontend.church.contributions.index', compact('contributions', 'year', 'month'));
+            return view('frontend.church.contributions.index', compact('contributions', 'year', 'month'));
         } catch (\Exception $e) {
-            // Log the error details for debugging purposes
-            Log::error('Error displaying church contributions: ' . $e->getMessage(), [
+            Log::error('Error displaying frontend church contributions: ' . $e->getMessage(), [
                 'exception' => $e,
                 'request' => $request->all(),
             ]);
 
-            // Redirect back with an error message
             return redirect()->back()->with('error', 'Imeshindwa kuonyesha taarifa za michango ya kanisa.');
         }
     }

@@ -3,9 +3,13 @@
 use Illuminate\Support\Facades\Route;
 
 // Frontend Routes
-Route::namespace('App\Http\Controllers\Frontend')->group(function () {
-    // Ujenzi Wa Kanisa (Church Contribution)
-    Route::get('michango-ya-ujenzi-kanisa', 'ChurchContributionController@index')->name('frontend.church.contributions.index');
+Route::group(['namespace' => 'App\Http\Controllers\Frontend', 'as' => 'frontend.'], function () {
+
+    // Michango ya Ujenzi wa Kanisa (Church Contributions)
+    Route::get('michango-ya-ujenzi-kanisa', 'ChurchContributionController@index')->name('church.contributions.index');
+
+    // Michango ya Kila Mwezi ya Viwawa (Viwawa Monthly Contributions)
+    Route::get('michango-ya-kila-mwezi', 'Viwawa\MonthlyContributionController@index')->name('viwawa.contributions.monthly.index');
 });
 
 // Global Guest Routes
@@ -49,7 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend\Common', 'middleware'
 });
 
 // Super Admin Routes
-Route::group(['namespace' => 'App\Http\Controllers\Backend\SuperAdmin', 'prefix' => 'super', 'as' => 'superadmin.', /*'middleware' => ['auth', 'role:superadmin']*/], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Backend\SuperAdmin', 'prefix' => 'super', 'as' => 'superadmin.', 'middleware' => ['auth', 'role:superadmin']], function () {
     // Resourceful routes for roles, permissions, users
     Route::resources([
         'roles' => 'RoleController',

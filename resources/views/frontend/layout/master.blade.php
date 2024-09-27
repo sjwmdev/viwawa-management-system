@@ -28,9 +28,9 @@
         <nav class="main-header navbar navbar-expand-md navbar-dark">
             <div class="container">
                 <!-- Brand Logo -->
-                <a href="{{ route('frontend.church.contributions.index') }}" class="navbar-brand">
+                <a href="{{ url()->current() }}" class="navbar-brand">
                     <img src="{{ asset('logo/viwawa-logo.jpg') }}" alt="Logo" class="brand-image">
-                    <span>Marko Mwijiri - JY Mt.Zita</span>
+                    <span>&nbsp;@yield('brandtitle', 'Jumuiya ya Mt.Zita')</span>
                 </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
@@ -48,30 +48,7 @@
                     </ul>
 
                     <!-- Year Selection Dropdown -->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a id="dropdownYear" href="#" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" class="nav-link dropdown-toggle">
-                                Chagua Mwaka
-                            </a>
-                            <ul aria-labelledby="dropdownYear" class="dropdown-menu border-0 shadow">
-                                <form id="yearForm" method="GET"
-                                    action="{{ route('frontend.church.contributions.index') }}">
-                                    @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                        <li>
-                                            <a href="javascript:void(0)" onclick="selectYear({{ $i }})"
-                                                class="dropdown-item {{ request('year', now()->year) == $i ? 'active' : '' }}">
-                                                {{ $i }}
-                                            </a>
-                                        </li>
-                                    @endfor
-                                    <!-- Hidden input to store selected year -->
-                                    <input type="hidden" name="year" id="selectedYear"
-                                        value="{{ request('year', now()->year) }}">
-                                </form>
-                            </ul>
-                        </li>
-                    </ul>
+                    @yield('chaguamwaka')
                 </div>
             </div>
         </nav>
@@ -86,7 +63,7 @@
                             <!-- Share Button Implementation -->
                             <p>
                                 <button class="btn btn-sm btn-primary" id="shareButton">
-                                    <i class="fas fa-share-alt"></i> Shiriki Rekodi
+                                    <i class="fas fa-share-alt"></i> Shiriki Ukurasa
                                 </button>
                             </p>
                         </div>
